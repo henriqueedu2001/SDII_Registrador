@@ -5,6 +5,7 @@ module test_neg;
 	reg [7:0] number;
 	reg enable;
     wire [7:0] result;
+	reg [7:0] expected;
 	
 	// instância da Unit Under Test
 	negative uut(
@@ -15,11 +16,6 @@ module test_neg;
 	
 	// 
 	initial begin
-		#100 $monitor ("testing for negatives numbers");
-		#100 $monitor ("enable = 0: remains the same");
-		#100 $monitor ("enable = 1: returns the opposite");
-		
-
 		number = 8'b00110110;
 		enable = 0;
 		$monitor ("number = %B; enable = %B; result: %B", number, enable, result);
