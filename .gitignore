@@ -5,3 +5,6 @@ neg
 reg
 numsig
 abs
+dm
+fsm
+reg_file
