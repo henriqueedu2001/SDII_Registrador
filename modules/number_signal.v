@@ -1,5 +1,5 @@
-module number_signal (
-    input wire signed [7:0] number, // first number of the operation, in 8 bits
+module number_signal #(parameter N = 8) (
+    input wire signed [N-1:0] number, // first number of the operation, in 8 bits
     output reg num_signal
 );
 

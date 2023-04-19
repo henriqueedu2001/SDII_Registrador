@@ -9,7 +9,7 @@ module negative (
     always @(number or enable) begin
         case (enable)
             0: result <= number;
-            1: result <= ~number + 1;
+            1: result <= neg;
         endcase
     end
 

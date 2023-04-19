@@ -6,7 +6,7 @@ O projeto conta com os seguintes módulos:
 2. **adder_subtractor**: realiza somas e subtrações com números de N bits
 3. **negative**: calcula o oposto de um número, em notação de complemento de 2
 4. **absolute_value**: calcula o módulo de um número
-5. **is_negative**: verifica se um número de N bits é negativo
+5. **number_signal**: verifica se um número de N bits é negativo
 
 Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas pequenas e simples. Eles servem para facilitar o desenvolvimento, pois permitem o reúso de um módulo em diversos outros locais, além de promoverem mais alto grau de abstração nos módulos maiores, que costumam ter implementação mais abstrata.
 
@@ -87,10 +87,10 @@ Dado um inteiro **x** de N bits, calcular seu módulo
 
 **Testebench**
 ```
-iverilog -o abs modules/absolute_value.v testbenchs/test_absolute_value.v
+iverilog -o abs modules/absolute_value.v modules/number_signal.v modules/negative.v testbenchs/test_absolute_value.v
 ```
 ```
-vvp neg
+vvp abs
 ```
 
 ## Módulo number_signal
