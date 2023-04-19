@@ -2,3 +2,4 @@ testbenchs/test_adder_subtractor.v
 adder
 adder_subtractor
 neg
+reg
