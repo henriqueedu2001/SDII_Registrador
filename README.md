@@ -2,16 +2,54 @@
 Neste repositório, o trabalho da disciplina de sistemas digitais II referente à aula 08.
 
 O projeto conta com os seguintes módulos:
-1. **register**: registrador de N bits, com sinal de load e clock, mas sem reset
-2. **adder_subtractor**: realiza somas e subtrações com números de N bits
-3. **negative**: calcula o oposto de um número, em notação de complemento de 2
-4. **absolute_value**: calcula o módulo de um número
-5. **number_signal**: verifica se um número de N bits é negativo
+1. **data_memory**: (TODO)
+2. **register_file**: (TODO)
+3. **register**: registrador de N bits, com sinal de load e clock, mas sem reset
+4. **adder_subtractor**: realiza somas e subtrações com números de N bits
+5. **negative**: calcula o oposto de um número, em notação de complemento de 2
+6. **absolute_value**: calcula o módulo de um número
+7. **number_signal**: verifica se um número de N bits é negativo
 
 Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas pequenas e simples. Eles servem para facilitar o desenvolvimento, pois permitem o reúso de um módulo em diversos outros locais, além de promoverem mais alto grau de abstração nos módulos maiores, que costumam ter implementação mais abstrata.
 
 # Parametrização
 Todos os módulos aqui estão parametrizados para valores genéricos de tamanho. O registrador **register**, por exemplo, possui entradas de tamanho **N**, sendo **N** um parâmetro.
+
+## Módulo data_memory
+descrição (TODO)
+
+**Entradas**:
+- entrada 1: (TODO)
+
+**Saídas**:
+- saída 1: (TODO)
+
+
+**Testbench**:
+```
+iverilog -o dm modules/data_memory.v testbenchs/test_data_memory.v 
+```
+```
+vvp dm
+```
+
+## Módulo register_file
+descrição (TODO)
+
+**Entradas**:
+- entrada 1: (TODO)
+
+**Saídas**:
+- saída 1: (TODO)
+
+
+**Testbench**:
+```
+iverilog -o reg_file modules/register_file.v testbenchs/test_register_file.v
+```
+```
+vvp reg_file
+```
 
 ## Registrador register
 
@@ -51,7 +89,7 @@ Bloco combinacional que realiza operações de soma ou subtração com dois núm
 iverilog -o adder_subtractor modules/adder_subtractor.v modules/negative.v testbenchs/test_adder_subtractor.v
 ```
 ```
-vvp adder
+vvp adder_subtractor
 ```
 
 ## Módulo negative
