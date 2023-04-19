@@ -87,7 +87,7 @@ Dado um inteiro **x** de N bits, calcular seu módulo
 
 **Testebench**
 ```
-iverilog -o neg modules/negative.v testbenchs/test_negative.v
+iverilog -o abs modules/absolute_value.v testbenchs/test_absolute_value.v
 ```
 ```
 vvp neg
