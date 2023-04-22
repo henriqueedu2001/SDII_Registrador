@@ -15,7 +15,7 @@ module test_register_file #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 	wire [WORDSIZE-1:0] data_b;
 
 	// instância da Unit Under Test
-	reg_file_teste uut(
+	regfile uut(
 		.clk(clk),
 		.write_en(write_en), 
 		.write_addr(write_addr), 
