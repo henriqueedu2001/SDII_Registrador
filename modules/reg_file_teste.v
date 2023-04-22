@@ -3,15 +3,15 @@ module regfile #(parameter WORDSIZE = 64, parameter SIZE = 32) (
 
     //Escrita 
     input write_en, // habilitar escrita 
-    input [5:0] write_addr,  // endereço do registrador a receber o valor escrito
+    input [4:0] write_addr,  // endereço do registrador a receber o valor escrito
     input [63:0] write_data, // valor a ser escrito
 
     // leitura1
-    input  [5:0] addr_a,   // endereço do registrador A a ser lido
+    input  [4:0] addr_a,   // endereço do registrador A a ser lido
     output  [63:0] data_a, // valor lido pelo registrador A
 
     // leitura2
-    input  [5:0] addr_b,   // endereço do registrador B a ser lido
+    input  [4:0] addr_b,   // endereço do registrador B a ser lido
     output  [63:0] data_b  // valor lido pelo registrador B
 ); 
 
