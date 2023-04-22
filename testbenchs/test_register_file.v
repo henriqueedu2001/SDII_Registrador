@@ -15,7 +15,7 @@ module test_register_file #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 	wire [WORDSIZE-1:0] data_b;
 
 	// instância da Unit Under Test
-	regfile uut(
+	register_file uut(
 		.clk(clk),
 		.write_en(write_en), 
 		.write_addr(write_addr), 
@@ -31,68 +31,19 @@ module test_register_file #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
         clk = 0;
         write_en = 0;
 		write_addr = 5'b00001; 
-		write_data = 64'b1010101010101010101010101010101010101010101010101010101010101010; 
-        addr_a = 5'b00001;
-		addr_b = 5'b00010;
-        $monitor ("clock = %B; write_en = %B, write_addr = %B; write_data = %B", clk, write_en, write_addr, write_data);
-		$monitor ("addr_a = %B, data_a = %B", addr_a, data_a); 
-		$monitor ("addr_b = %B, data_b = %B", addr_b, data_b); 
+		write_data = 64'h0000_0000_0000_0000; 
+        addr_a = 5'b01101;
+		addr_b = 5'b00110;
+        $monitor ("clock = %B; write_en = %B, write_addr = %B; write_data = %H\naddr_a = %B, data_a = %B\naddr_b = %B, data_b = %B",
+			clk, 
+			write_en, 
+			write_addr, 
+			write_data,
+			addr_a,
+			data_a,
+			addr_b,
+			data_b
+		);
         #100;
-
-		clk = 1;
-        write_en = 1;
-		write_addr = 5'b00001; 
-		write_data = 64'b1010101010101010101010101010101010101010101010101010101010101010; 
-        addr_a = 5'b00001;
-		addr_b = 5'b00010;
-        $monitor ("clock = %B; write_en = %B, write_addr = %B; write_data = %B", clk, write_en, write_addr, write_data);
-		$monitor ("addr_a = %B, data_a = %B", addr_a, data_a); 
-		$monitor ("addr_b = %B, data_b = %B", addr_b, data_b); 
-        #100;
-
-		clk = 0;
-        write_en = 0;
-		write_addr = 5'b00010; 
-		write_data = 64'b1111111111111111111111111111111111111111111111111111111111111111; 
-        addr_a = 5'b00001;
-		addr_b = 5'b00010;
-        $monitor ("clock = %B; write_en = %B, write_addr = %B; write_data = %B", clk, write_en, write_addr, write_data);
-		$monitor ("addr_a = %B, data_a = %B", addr_a, data_a); 
-		$monitor ("addr_b = %B, data_b = %B", addr_b, data_b); 
-        #100;
-
-		clk = 1;
-        write_en = 1;
-		write_addr = 5'b00010; 
-		write_data = 64'b1111111111111111111111111111111111111111111111111111111111111111; 
-        addr_a = 5'b00001;
-		addr_b = 5'b00010;
-        $monitor ("clock = %B; write_en = %B, write_addr = %B; write_data = %B", clk, write_en, write_addr, write_data);
-		$monitor ("addr_a = %B, data_a = %B", addr_a, data_a); 
-		$monitor ("addr_b = %B, data_b = %B", addr_b, data_b); 
-        #100;
-
-		clk = 0;
-        write_en = 0;
-		write_addr = 5'b00100; 
-		write_data = 64'b1111111111111111111111111111111100000000000000000000000000000000; 
-        addr_a = 5'b00010;
-		addr_b = 5'b00100;
-        $monitor ("clock = %B; write_en = %B, write_addr = %B; write_data = %B", clk, write_en, write_addr, write_data);
-		$monitor ("addr_a = %B, data_a = %B", addr_a, data_a); 
-		$monitor ("addr_b = %B, data_b = %B", addr_b, data_b); 
-        #100;
-
-		clk = 1;
-        write_en = 1;
-		write_addr = 5'b00100; 
-		write_data = 64'b1111111111111111111111111111111100000000000000000000000000000000; 
-        addr_a = 5'b00010;
-		addr_b = 5'b00100;
-        $monitor ("clock = %B; write_en = %B, write_addr = %B; write_data = %B", clk, write_en, write_addr, write_data);
-		$monitor ("addr_a = %B, data_a = %B", addr_a, data_a); 
-		$monitor ("addr_b = %B, data_b = %B", addr_b, data_b); 
-        #100;
-
 	end
 endmodule 

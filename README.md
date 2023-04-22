@@ -56,10 +56,10 @@ As duas leituras de dados realizadas no banco são assíncronas, ou seja, são i
 
 **Testbench**:
 ```
-iverilog -o reg_file modules/register_file.v testbenchs/test_register_file.v
+iverilog -o regfile modules/register_file.v modules/reg.v testbenchs/test_register_file.v 
 ```
 ```
-vvp reg_file
+vvp regfile
 ```
 
 ## Registrador register

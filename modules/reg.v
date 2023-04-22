@@ -1,5 +1,5 @@
 /* registrador, com sinal de load, sem reset e parametrizado para N bits de memória */
-module register #(parameter N = 8) (
+module register #(parameter N = 64) (
     input wire clk, /* sinal de clock */
     input wire load_signal, /* sinal de load, para escrever ou não novos valores */
     input wire [N-1:0] data_input, /* novos dados a serem escritos no registrador */
