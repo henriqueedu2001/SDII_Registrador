@@ -31,6 +31,54 @@ module test_data_memory #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 
         clk = 1;
         addr = 5'b00101;
+        data_input = 64'b1010101010101010101010101010101010101010101010101010101010101010;
+        write_enable = 1;
+        read = 1;
+        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
+        #100;
+
+        clk = 0;
+        addr = 5'b00101;
+        data_input = 64'b0000000000000000000000000000000000000000000000000000000000000000;
+        write_enable = 1;
+        read = 1;
+        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
+        #100;
+
+        clk = 1;
+        addr = 5'b00101;
+        data_input = 64'b0000000000000000000000000000000000000000000000000000000000000000;
+        write_enable = 1;
+        read = 1;
+        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
+        #100;
+
+        clk = 0;
+        addr = 5'b00001;
+        data_input = 64'b1111111111111111111111111111111111111111111111111111111111111111;
+        write_enable = 1;
+        read = 1;
+        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
+        #100;
+
+        clk = 1;
+        addr = 5'b00001;
+        data_input = 64'b1111111111111111111111111111111111111111111111111111111111111111;
+        write_enable = 0;
+        read = 1;
+        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
+        #100;
+
+        clk = 0;
+        addr = 5'b00001;
+        data_input = 64'b1111111111111111111111111111111111111111111111111111111111111111;
+        write_enable = 1;
+        read = 1;
+        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
+        #100;
+
+        clk = 1;
+        addr = 5'b00001;
         data_input = 64'b1111111111111111111111111111111111111111111111111111111111111111;
         write_enable = 1;
         read = 1;
@@ -39,7 +87,7 @@ module test_data_memory #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 
         clk = 0;
         addr = 5'b00101;
-        data_input = 64'b0000000000000000000000000000000000000000000000000000000000000001;
+        data_input = 64'b0000111111111111111111111111111111111111111111111111111111110000;
         write_enable = 0;
         read = 1;
         $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
@@ -47,34 +95,12 @@ module test_data_memory #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 
         clk = 1;
         addr = 5'b00101;
-        data_input = 64'b0000000000000000000000000000000000000000000000000000000000000001;
+        data_input = 64'b0000111111111111111111111111111111111111111111111111111111110000;
         write_enable = 0;
         read = 1;
         $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
         #100;
 
-        clk = 0;
-        addr = 5'b00101;
-        data_input = 64'b1010101010101010101010101010101010101010101010101010101010101010;
-        write_enable = 1;
-        read = 1;
-        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
-        #100;
 
-        clk = 1;
-        addr = 5'b00101;
-        data_input = 64'b1010101010101010101010101010101010101010101010101010101010101010;
-        write_enable = 1;
-        read = 1;
-        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
-        #100;
-
-        clk = 0;
-        addr = 5'b00101;
-        data_input = 64'b1010101010101010101010101010101010101010101010101010101010101010;
-        write_enable = 0;
-        read = 1;
-        $monitor ("clock = %B; addr = %B, write = %B; input = %B, output = %B", clk, addr, write_enable, data_input, data_output);
-        #100;
 	end
 endmodule
