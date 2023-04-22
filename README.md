@@ -16,7 +16,7 @@ Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas peq
 Todos os módulos aqui estão parametrizados para valores genéricos de tamanho. O registrador **register**, por exemplo, possui entradas de tamanho **N**, sendo **N** um parâmetro.
 
 ## Módulo data_memory
-Esse módulo contém a **memória dinâmica** que armazena 32 words de 64 bits cada. São possíveis realizar as operações de leitura e escrita, a partir dos inputs correspondentes para exercer as funcionalidades. Assim, a cada pulso de clock, ele verifica se a escrita está habilitada e escreve o **data_input** na posição **addr** da memória, em caso positivo. Além disso, a todo momento ele apresenta no **data_output** o valor lido no **addr**, caso o **read** esteja ativo.
+Esse módulo contém a **memória dinâmica** que armazena 32 words de 64 bits cada. É possível realizar as operações de leitura e escrita, a partir dos inputs. A cada pulso de clock, ele verifica o sinal de escrita: se habilitado, ele escreve o **data_input** na posição **addr** da memória. Além disso, a todo momento ele apresenta no **data_output** o valor lido no **addr**, caso o **read** esteja ativo.
 
 **Entradas**:
 - **clk**: Sinal de clock;
@@ -25,11 +25,8 @@ Esse módulo contém a **memória dinâmica** que armazena 32 words de 64 bits c
 - **write_enable**: Habilitar a escrita na memória;
 - **read**: Ativar a leitura na memória;
 
-
-
 **Saídas**:
 - **data_output**: Valor lido no endereço de acesso da memória;
-
 
 **Testbench**:
 ```
@@ -40,8 +37,8 @@ vvp dm
 ```
 
 ## Módulo register_file
-O módulo *register_file* funciona como um banco de registradores, permitindo a leitura de dados previamente armazenados e a escrita e modificação de informações internas. No exercício proposto, o banco deve possuir 32 registradores, correspondentes ao módulo *register* já implementado, de 64 *bits* cada. <br>
-Vale ressaltar que as duas leituras de dados realizadas no banco são assíncronas, ou seja, são independentes do *clock*, e seus *outputs* variam de acordo com a mundança dos valores de endereços passados no input. Já a escrita é síncrona, sendo verificado se a variável de controle dessa operação está ativa a cada pulso de *clock*. 
+O módulo *register_file* funciona como um banco de registradores, que permite a leitura de dados armazenados e a escrita ou modificação de informações em seus espaços de memória. Nessa implementação, o banco possui 32 registradores, correspondentes ao módulo **register** já implementado, de 64 *bits* cada. <br>
+As duas leituras de dados realizadas no banco são assíncronas, ou seja, são independentes do **clock**, e seus **outputs** variam de acordo com a mundança dos valores de endereços passados no input. Já a escrita é síncrona, sendo verificado se a variável de controle dessa operação está ativa a cada pulso de **clock**. 
 
 **Entradas**:
 - **clk**: sinal de *clock*
