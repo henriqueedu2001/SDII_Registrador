@@ -16,7 +16,7 @@ Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas peq
 Todos os módulos aqui estão parametrizados para valores genéricos de tamanho. O registrador **register**, por exemplo, possui entradas de tamanho **N**, sendo **N** um parâmetro.
 
 ## Módulo data_memory
-Esse módulo contém a **memória dinâmica** que armazena 32 words de 64 bits cada. São possíveis realizar as operações de leitura e escrita, a partir dos inputs correspondentes para exercer as funcionalidades. Assim, a cada pulso de clock ele verifica se a escrita está habilitada, e escreve o **data_input** na posição **addr** na memória em caso positivo. Além disso, a todo momento ele apresenta no **data_output** o valor lido no **addr** caso o **read** esteja ativo.
+Esse módulo contém a **memória dinâmica** que armazena 32 words de 64 bits cada. São possíveis realizar as operações de leitura e escrita, a partir dos inputs correspondentes para exercer as funcionalidades. Assim, a cada pulso de clock, ele verifica se a escrita está habilitada e escreve o **data_input** na posição **addr** da memória, em caso positivo. Além disso, a todo momento ele apresenta no **data_output** o valor lido no **addr**, caso o **read** esteja ativo.
 
 **Entradas**:
 - **clk**: Sinal de clock;
