@@ -26,12 +26,15 @@ module test_register_file #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 	
 	// 
 	initial begin
+		/* Teste 01 - escrita de um valor em um registrador do banco */
         clk = 0;
         write_en = 1;
 		write_addr = 5'b01101; 
 		write_data = 64'h0000_0000_0000_aabb; 
         addr_a = 5'b01101;
 		addr_b = 5'b00110;
+		$monitor ("-> Escrita de x = %H em addr = %B\n", write_data, write_addr);
+		#100;
         $monitor ("clock = %B; write_en = %B;\nwrite_addr = %B; write_data = %H\naddr_a = %B, data_a = %H\naddr_b = %B, data_b = %H\n",
 			clk, 
 			write_en, 
@@ -80,12 +83,16 @@ module test_register_file #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 		);
         #100;
 
+		/* Teste 02 - escrita de um valor em um outro registrador do banco */
+
 		clk = 0;
         write_en = 1;
 		write_addr = 5'b00100; 
 		write_data = 64'h0000_0000_e45f_b21f; 
         addr_a = 5'b01101;
 		addr_b = 5'b00100;
+		$monitor ("-> Escrita de x = %H em addr = %B\n", write_data, write_addr);
+		#100;
         $monitor ("clock = %B; write_en = %B;\nwrite_addr = %B; write_data = %H\naddr_a = %B, data_a = %H\naddr_b = %B, data_b = %H\n",
 			clk, 
 			write_en, 
