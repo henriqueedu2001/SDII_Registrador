@@ -34,14 +34,14 @@ vvp dm
 ```
 
 ## Módulo register_file
-O módulo *register_file* funciona como um banco de registradores, permitindo a leitura de dados previamente armazenados e a escrita e modificação de informações internas. No exercício proposto, o banco deve possuir 32 registradores correspondentes ao módulo *register* já implementado, de 64 *bits* cada. <br>
+O módulo *register_file* funciona como um banco de registradores, permitindo a leitura de dados previamente armazenados e a escrita e modificação de informações internas. No exercício proposto, o banco deve possuir 32 registradores, correspondentes ao módulo *register* já implementado, de 64 *bits* cada. <br>
 Vale ressaltar que as duas leituras de dados realizadas no banco são assíncronas, ou seja, são independentes do *clock* e seus *outputs* variam de acordo com a mundança dos valores acessados pelos endereços. Já a escrita é síncrona, sendo verificado se a variável de controle dessa operação está ativa a cada pulso de *clock*. 
 
 **Entradas**:
 - **clk**: sinal de *clock*
 - **write_en**: variável de controle (*enable*) da operação de escrita no banco <br>
     - 0: inativa 
-    - 1: ativa, o banco receberá um novo dado no endereço especficado 
+    - 1: ativa, o banco receberá um novo dado no endereço especificado 
 - **write_addr**: endereço em que será armazenado o novo dado escrito 
 - **write_data**: valor a ser escrito 
 - **addr_a**: endereço do registrador A a ser lido 
