@@ -19,8 +19,5 @@ module data_memory #(parameter WORDSIZE = 64, parameter SIZE = 32) (
 
     /* saída de leitura */
     assign data_output = (read==1'b1) ? memory[addr] : 64'd0;
-    // tá certo sabosta
-    // pior que ta saindo tudo 0 ainda 
-    // xo ver dnv 
 
 endmodule
