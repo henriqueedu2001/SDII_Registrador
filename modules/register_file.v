@@ -9,11 +9,15 @@ module register_file #(parameter WORDSIZE = 64, parameter SIZE = 32) (
     output reg [WORDSIZE-1:0] data_b /* valor lido pelo registrador B */
 ); 
 
+    /* fios para se ligar com os data_output de cada um dos registradores*/
     wire [WORDSIZE-1:0] data [SIZE-1:0];
+
+    /*  */
     reg [WORDSIZE-1:0] data_output [SIZE-1:0];
 
+    /* gera um array de SIZE = 32 (default) registradores do tipo register (ver reg.v) */
     generate
-        for (genvar i = 0; i < 2; i = i + 1) begin: REG_INST
+        for (genvar i = 0; i < SIZE; i = i + 1) begin: REG_INST
             register r0 (
                 .clk(clk),
                 .load_signal(write_en),
@@ -23,17 +27,17 @@ module register_file #(parameter WORDSIZE = 64, parameter SIZE = 32) (
         end
     endgenerate
 
-    // A escrita é síncrona com o clock
-    
+    /* ativação em borda de subida */
     always @ (posedge clk) begin
+        /* escrita síncrona com o clock */
         if(write_en) begin 
             data_output[write_addr] <= write_data;
         end
     end
 
-    // A leitura é assíncrona com o clock
-    // Os outputs mudam assim que os inputs mudam
-    always @ (addr_a or addr_b) begin
+    /* ativação em qualquer instante */
+    always @ (*) begin
+        /* leitura assíncrona com o clock */
         data_a <= data_output[addr_a]; 
         data_b <= data_output[addr_b];
     end
