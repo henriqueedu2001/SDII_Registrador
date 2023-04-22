@@ -18,25 +18,25 @@ module regfile #(parameter WORDSIZE = 64, parameter SIZE = 32) (
     reg [WORDSIZE:0] data_out [SIZE-1:0];
 
     generate
-    for (genvar i = 0; i < 32; i = i + 1) begin : REG_INST
-      register reg (
-        .clk(clk),
-        .load_signal(write_en), // bitch ????????????
-        .data_input(write_data), // n sei se aqui tem que ser o write_data, deveria ser zerando todos os modulos n???? 
-        .data_output(data_out[i])
-      );
-    end
-  endgenerate
+        for (genvar i = 0; i < 32; i = i + 1) begin : REG_INST
+            register reg (
+                .clk(clk),
+                .load_signal(write_en), // bitch ????????????
+                .data_input(write_data), // n sei se aqui tem que ser o write_data, deveria ser zerando todos os modulos n???? 
+                .data_output(data_out[i])
+            );
+        end
+    endgenerate
 
-  // A escrita é síncrona com o clock
+    // A escrita é síncrona com o clock
     always @ (posedge clk) begin
         if(write_en) begin 
             data_out[write_addr] <= write_data;
         end
     end
 
-  // A leitura é assíncrona com o clock
-  // Os outputs mudam assim que os inputs mudam
+    // A leitura é assíncrona com o clock
+    // Os outputs mudam assim que os inputs mudam
     always @ (addr_a or addr_b) begin
         assign data_a <= data_out[addr_a]; 
         assign data_b <= data_out[addr_b];

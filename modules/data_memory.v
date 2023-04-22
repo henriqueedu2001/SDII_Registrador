@@ -1,5 +1,5 @@
 /* bloco de memória do processador */
-module Data_Memory #(parameter WORDSIZE = 64, parameter SIZE = 32) (
+module data_memory #(parameter WORDSIZE = 64, parameter SIZE = 32) (
     input clk, /* sinal de clock */
     input [4:0] addr, /* endereço da memória, onde haverá leitura ou escrita */
     input [WORDSIZE-1:0] data_input, /* valor a ser escrito na memória */
@@ -18,6 +18,9 @@ module Data_Memory #(parameter WORDSIZE = 64, parameter SIZE = 32) (
     end
 
     /* saída de leitura */
-    assign data_output = (read==1'b1) ? memory[addr]: 64'd0; 
+    assign data_output = (read==1'b1) ? memory[addr] : 64'd0;
+    // tá certo sabosta
+    // pior que ta saindo tudo 0 ainda 
+    // xo ver dnv 
 
 endmodule
