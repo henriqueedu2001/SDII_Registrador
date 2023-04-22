@@ -21,8 +21,8 @@ module regfile #(parameter WORDSIZE = 64, parameter SIZE = 32) (
     for (genvar i = 0; i < 32; i = i + 1) begin : REG_INST
       register reg (
         .clk(clk),
-        .load_signal(write_en),
-        .data_input(write_data), // n sei se aqui tem que ser o write_data, deveria ser zerando todos os modulos n? 
+        .load_signal(write_en), // bitch ????????????
+        .data_input(write_data), // n sei se aqui tem que ser o write_data, deveria ser zerando todos os modulos n???? 
         .data_output(data_out[i])
       );
     end
