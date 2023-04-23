@@ -46,6 +46,7 @@ Alguns dos componentes aqui listados podem não ser necessariamente utilizados p
 Para cada componente, desenvolveu-se um testbench específico, para verificação de corretude. Os comandos para visualização desses testes está descrito a seguir e em cada um dos módulos; basta copiar e colar seu conteúdo no terminal.
 
 Mas, visando a facilitar o acesso aos testes e a evitar problemas com versões do icarus (ele aponta erros em versão até a 10.3), disponibilizamos as saídas dos testes dos componentes mais importantes na pasta logs desse repositório:
+- test_processor_store.txt
 - register_file.txt
 - data_memory.txt
 - reg.txt
