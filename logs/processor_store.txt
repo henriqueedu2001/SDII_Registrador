@@ -1,0 +1,21 @@
+**Este log foi gerado com o testbench test_processor_store.v**
+
+->teste de store
+->instrução: rs1 = 00100; op = 0000001; rd_in = 000000005f11e01a;
+
+->iniciando operação de store
+clk = 1; rs1_out = xxxxxxxxxxxxxxxx;
+clk = 0; rs1_out = xxxxxxxxxxxxxxxx;
+
+->escrevendo x = 000000005f11e01a no register file, em addr = 00100
+clk = 1; rs1_out = xxxxxxxxxxxxxxxx;
+clk = 0; rs1_out = xxxxxxxxxxxxxxxx;
+
+->escrevendo no x = 000000005f11e01a no data memory, em addr = 00100
+clk = 1; rs1_out = xxxxxxxxxxxxxxxx;
+clk = 0; rs1_out = xxxxxxxxxxxxxxxx;
+
+->fim da operação
+->valor no data memory na posição addr = 00100 é x = 000000005f11e01a
+clk = 1; rs1_out = 000000005f11e01a;
+clk = 0; rs1_out = 000000005f11e01a;

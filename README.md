@@ -72,7 +72,7 @@ Componente que representa o processador do projeto, com todos os seus subcompone
 
 **Testbench**:
 ```
-iverilog -o processor modules/processor.v modules/data_memory.v modules/register_file.v modules/adder_subtractor.v modules/negative.v modules/clock.v modules/reg.v testbenchs/test_processor.v
+iverilog -o processor modules/processor.v modules/data_memory.v modules/register_file.v modules/adder_subtractor.v modules/negative.v modules/clock.v modules/reg.v testbenchs/test_processor_store.v
 ```
 ```
 vvp processor

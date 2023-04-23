@@ -98,7 +98,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 						rf_write_en = 1;
 						dm_write_enable = 0;
 						dm_read = 0;
-						$display("->iniciando operação de load\n");
+						$display("->iniciando operação de store");
 						next_state = state_writing_rf;
 					end
 					state_writing_rf: begin
@@ -106,7 +106,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 						dm_write_enable = 0;
 						dm_read = 0;
 						dm_addr = rs1;
-						$display("->escrevendo x = %H no register file, em addr = %B\n", rd_in, rs1);
+						$display("->escrevendo x = %H no register file, em addr = %B", rd_in, rs1);
 						
 						next_state = state_writing_dm;
 					end
@@ -115,7 +115,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 						dm_write_enable = 1;
 						dm_read = 1;
 						dm_data_input = rf_data_a;
-						$display("->escrevendo no x = %H no data memory, em addr = %B\n", rf_data_a, rs1);
+						$display("->escrevendo no x = %H no data memory, em addr = %B", rf_data_a, rs1);
 						next_state = state_reading_dm;
 					end
 					state_reading_dm: begin
@@ -123,7 +123,8 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 						dm_write_enable = 0;
 						dm_read = 1;
 						finished_op = 1;
-						$display("->fim da operação\n->valor no data memory na posição addr = %B é x = %H\n", rs1, dm_data_output);
+						$display("->fim da operação\n->valor no data memory na posição addr = %B é x = %H", rs1, dm_data_output);
+						rs1_out = dm_data_output;
 						next_state = state_none;
 					end
 				endcase
