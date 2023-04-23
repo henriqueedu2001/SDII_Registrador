@@ -8,6 +8,20 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	output rs1_out, /* valor de saída de rs1 */
 	output rs2_out /* valor de saída de rs2 */
 );
+	/* conjunto de operações possíveis */
+	localparam 
+		op_none = 7'b0000000, /* inativo */
+		op_store = 7'b0000001, /* operação store */
+		op_add = 7'b0000010, /* operação add */
+		op_sub = 7'b0000011; /* operação sub */
+	
+	/* conjunto de estados do sistema */
+	localparam 
+		state_none = 7'b0000000, /* repouso/início */
+		state_writing_rf = 7'b0000001, /* escrevendo no register_file */
+		state_alu_computing = 7'b0000011, /* computando um resultado aritmético na ALU */
+		state_writing_dm = 7'b0000010, /* escrevendo no data_memory */
+		state_reading_dm = 7'b0000010; /* faz leitura do data_memory */
 
 	/* fios para instanciação do register file (prefixo rf_ para identificação) */	
     wire rf_write_en;
@@ -24,7 +38,6 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
     wire dm_write_enable;
     wire dm_read;
     wire [WORDSIZE-1:0] dm_data_output;
-	
 
 	/* fios para instanciação do adder_subtractor (prefixo adder_sub_ para identificação) */
 	/* (aqui, no futuro, haverá uma ALU) */
@@ -63,8 +76,14 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 		adder_sub_result
 	);
 
+	reg temp;
+
+	/* ativação em borda de subida do clock */
 	always @(posedge clk) begin
-		
+		case (op_code)
+			op_none: temp <= 0;
+			op_store: temp <= 1;
+		endcase
 	end
 	
 endmodule
