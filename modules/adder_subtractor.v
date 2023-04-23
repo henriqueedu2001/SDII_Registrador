@@ -2,7 +2,7 @@
     -> operation = 0: adição
     -> operation = 1: subtração
 */
-module adder_subtractor #(parameter N = 8) (
+module adder_subtractor #(parameter N = 64) (
     input wire [N-1:0] factor_a, // primeiro número da operação
     input wire [N-1:0] factor_b, // segundo número da operação
     input wire operation, // operação a ser realizada

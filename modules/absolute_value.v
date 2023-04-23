@@ -1,5 +1,5 @@
 /* calcula o valor absoluto de um número binário x de N bits, em notação de complemento de dois*/
-module absolute_value #(parameter N = 8) (
+module absolute_value #(parameter N = 64) (
     input wire signed [N-1:0] number, /* numero x, cujo módulo se deseja calcular */
     output reg signed [N-1:0] abs /* módulo do número x */
 );

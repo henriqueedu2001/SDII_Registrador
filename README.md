@@ -36,6 +36,17 @@ iverilog -o dm modules/data_memory.v testbenchs/test_data_memory.v
 vvp dm
 ```
 
+## Módulo Processador
+
+**Testbench**
+```
+iverilog -o processor modules/processor.v modules/data_memory.v modules/register_file.v modules/adder_subtractor.v modules/negative.v modules/clock.v modules/reg.v testbenchs/test_processor.v
+```
+```
+vvp processor
+```
+
+
 ## Módulo register_file
 O módulo *register_file* funciona como um banco de registradores, que permite a leitura de dados armazenados e a escrita ou modificação de informações em seus espaços de memória. Nessa implementação, o banco possui 32 registradores, correspondentes ao módulo **register** já implementado, de 64 *bits* cada. <br>
 As duas leituras de dados realizadas no banco são assíncronas, ou seja, são independentes do **clock**, e seus **outputs** variam de acordo com a mundança dos valores de endereços passados no input. Já a escrita é síncrona, sendo verificado se a variável de controle dessa operação está ativa a cada pulso de **clock**. 

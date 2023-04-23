@@ -2,7 +2,7 @@
     -> enable = 0: módulo desativado; retorno do número original
     -> enable = 1: módulo ativado; retorno do oposto do número original
 */
-module negative #(parameter N = 8) (
+module negative #(parameter N = 64) (
     input wire [N-1:0] number, /* número cujo oposto se deseja calcular */
     input wire enable, /* define se o módulo está ativado ou não */
     output reg [N-1:0] result /* resultado da operação */

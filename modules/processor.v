@@ -10,7 +10,6 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 );
 
 /* Data Memory registers */
-    reg clk;
     reg [4:0] dm_addr;
     reg [WORDSIZE-1:0] dm_data_input;
     reg dm_write_enable;
@@ -69,7 +68,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	);
     
 
-wire clock; // clock
+wire clk; // clock
 	clock_gen clock (clk);
 
 
