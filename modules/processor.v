@@ -40,8 +40,8 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
     wire [WORDSIZE-1:0] rf_data_b;
 
 	/* fios para instanciação do data_memory (prefixo dm_ para identificação) */	
-	wire [4:0] dm_addr;
-    wire [WORDSIZE-1:0] dm_data_input;
+	reg [4:0] dm_addr;
+    reg [WORDSIZE-1:0] dm_data_input;
     reg dm_write_enable;
     reg dm_read;
     wire [WORDSIZE-1:0] dm_data_output;
@@ -98,21 +98,24 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 						rf_write_en = 1;
 						dm_write_enable = 0;
 						dm_read = 0;
-						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
+						$display("->iniciando operação de load\n");
 						next_state = state_writing_rf;
 					end
 					state_writing_rf: begin
 						rf_write_en = 1;
 						dm_write_enable = 0;
 						dm_read = 0;
-						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
+						dm_addr = rs1;
+						$display("->escrevendo x = %H no register file, em addr = %B\n", rd_in, rs1);
+						
 						next_state = state_writing_dm;
 					end
 					state_writing_dm: begin
 						rf_write_en = 0;
 						dm_write_enable = 1;
-						dm_read = 0;
-						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
+						dm_read = 1;
+						dm_data_input = rf_data_a;
+						$display("->escrevendo no x = %H no data memory, em addr = %B\n", rf_data_a, rs1);
 						next_state = state_reading_dm;
 					end
 					state_reading_dm: begin
@@ -120,7 +123,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 						dm_write_enable = 0;
 						dm_read = 1;
 						finished_op = 1;
-						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
+						$display("->fim da operação\n->valor no data memory na posição addr = %B é x = %H\n", rs1, dm_data_output);
 						next_state = state_none;
 					end
 				endcase

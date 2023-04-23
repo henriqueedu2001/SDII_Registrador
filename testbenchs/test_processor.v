@@ -117,46 +117,6 @@ module test_processor #(parameter WORDSIZE = 64, parameter SIZE = 32);
             debug_variable
         );
         #100;
-
-        clk = 1;
-		$monitor ("clk = %B; rs1 = %B; rs2 = %B; op = %B;\ndb_vr = %H\n", 
-            clk,
-            rs1,
-            rs2,
-            op_code,
-            debug_variable
-        );
-        #100;
-
-        clk = 0;
-		$monitor ("clk = %B; rs1 = %B; rs2 = %B; op = %B;\ndb_vr = %H\n", 
-            clk,
-            rs1,
-            rs2,
-            op_code,
-            debug_variable
-        );
-        #100;
-
-        clk = 1;
-		$monitor ("clk = %B; rs1 = %B; rs2 = %B; op = %B;\ndb_vr = %H\n", 
-            clk,
-            rs1,
-            rs2,
-            op_code,
-            debug_variable
-        );
-        #100;
-
-        clk = 0;
-		$monitor ("clk = %B; rs1 = %B; rs2 = %B; op = %B;\ndb_vr = %H\n", 
-            clk,
-            rs1,
-            rs2,
-            op_code,
-            debug_variable
-        );
-        #100;
 	end
 
 endmodule
