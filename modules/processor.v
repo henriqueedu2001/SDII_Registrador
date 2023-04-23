@@ -3,7 +3,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	input clk,
 	input [4:0] rs1, /* endereço de rs1 */
 	input [4:0] rs2, /* endereço de rs2 */
-	input [SIZE-1:0] rd_in, /* valor de input de rd */
+	input [WORDSIZE-1:0] rd_in, /* valor de input de rd */
 	input [6:0] op_code, /* operação a ser realizada */
 	output reg [WORDSIZE-1:0] rs1_out, /* valor de saída de rs1 */
 	output reg [WORDSIZE-1:0] rs2_out, /* valor de saída de rs2 */
@@ -20,27 +20,30 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	localparam 
 		state_none = 7'b0000000, /* repouso/início */
 		state_writing_rf = 7'b0000001, /* escrevendo no register_file */
-		state_alu_computing = 7'b0000011, /* computando um resultado aritmético na ALU */
-		state_writing_dm = 7'b0000010, /* escrevendo no data_memory */
-		state_reading_dm = 7'b0000010; /* faz leitura do data_memory */
+		state_alu_computing = 7'b0000010, /* computando um resultado aritmético na ALU */
+		state_writing_dm = 7'b0000011, /* escrevendo no data_memory */
+		state_reading_dm = 7'b0000100; /* faz leitura do data_memory */
 	
 	/* estados da fsm */
 	reg [2:0] current_state, next_state;
 
+	/* controla fim da operação */
+	reg finished_op;
+
 	/* fios para instanciação do register file (prefixo rf_ para identificação) */	
-    wire rf_write_en;
+    reg rf_write_en;
     wire [4:0] rf_write_addr;
     wire [WORDSIZE-1:0] rf_write_data;
     wire [4:0] rf_addr_a;
     wire [4:0] rf_addr_b;
-    wire reg [WORDSIZE-1:0] rf_data_a;
-    wire reg [WORDSIZE-1:0] rf_data_b;
+    wire [WORDSIZE-1:0] rf_data_a;
+    wire [WORDSIZE-1:0] rf_data_b;
 
 	/* fios para instanciação do data_memory (prefixo dm_ para identificação) */	
 	wire [4:0] dm_addr;
     wire [WORDSIZE-1:0] dm_data_input;
-    wire dm_write_enable;
-    wire dm_read;
+    reg dm_write_enable;
+    reg dm_read;
     wire [WORDSIZE-1:0] dm_data_output;
 
 	/* fios para instanciação do adder_subtractor (prefixo adder_sub_ para identificação) */
@@ -54,10 +57,10 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	register_file rf(
 		clk,
 		rf_write_en,
-		rf_write_addr,
-		rf_write_data,
-		rf_addr_a,
-		rf_addr_b,
+		rs1,
+		rd_in,
+		rs1,
+		rs2,
 		rf_data_a,
 		rf_data_b
 	);
@@ -81,6 +84,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	);
 
 	initial begin
+		finished_op = 0;
 		current_state = state_none;
 		next_state = state_none;
 	end
@@ -88,31 +92,45 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	/* ativação em borda de subida do clock */
 	always @(posedge clk) begin
 		case (op_code)
-			op_none: debug_variable = 64'h0000_0000_0000_0000;
 			op_store: begin
 				case (current_state)
 					state_none: begin
-						debug_variable = 64'h0000_0000_0000_1111;
+						rf_write_en = 1;
+						dm_write_enable = 0;
+						dm_read = 0;
+						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
 						next_state = state_writing_rf;
 					end
 					state_writing_rf: begin
-						debug_variable = 64'h0000_0000_1111_1111;
+						rf_write_en = 1;
+						dm_write_enable = 0;
+						dm_read = 0;
+						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
 						next_state = state_writing_dm;
 					end
 					state_writing_dm: begin
-						debug_variable = 64'h0000_0000_2222_1111;
+						rf_write_en = 0;
+						dm_write_enable = 1;
+						dm_read = 0;
+						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
+						next_state = state_reading_dm;
+					end
+					state_reading_dm: begin
+						rf_write_en = 0;
+						dm_write_enable = 0;
+						dm_read = 1;
+						finished_op = 1;
+						$display("->State: %B\n%B %B %B\n%B %H", current_state, rf_write_en, dm_write_enable, dm_read, rs1, rf_data_a);
 						next_state = state_none;
 					end
 				endcase
 			end
-			
-			op_add: debug_variable = 64'h0000_0000_2222_0000;
-			op_sub: debug_variable = 64'h0000_0000_2222_0000;
 		endcase
 	end
 
-	always @(negedge clk ) begin
-		current_state <= next_state;
+	always @(negedge clk) begin
+		if (finished_op == 0)
+			current_state <= next_state;
 	end
 	
 endmodule
