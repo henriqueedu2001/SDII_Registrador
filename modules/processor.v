@@ -5,8 +5,9 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	input [4:0] rs2, /* endereço de rs2 */
 	input [SIZE-1:0] rd_in, /* valor de input de rd */
 	input [6:0] op_code, /* operação a ser realizada */
-	output rs1_out, /* valor de saída de rs1 */
-	output rs2_out /* valor de saída de rs2 */
+	output reg [WORDSIZE-1:0] rs1_out, /* valor de saída de rs1 */
+	output reg [WORDSIZE-1:0] rs2_out, /* valor de saída de rs2 */
+	output reg [WORDSIZE-1:0] debug_variable /* valor teste, para debugs */
 );
 	/* conjunto de operações possíveis */
 	localparam 
@@ -22,6 +23,9 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 		state_alu_computing = 7'b0000011, /* computando um resultado aritmético na ALU */
 		state_writing_dm = 7'b0000010, /* escrevendo no data_memory */
 		state_reading_dm = 7'b0000010; /* faz leitura do data_memory */
+	
+	/* estados da fsm */
+	reg [2:0] current_state, next_state;
 
 	/* fios para instanciação do register file (prefixo rf_ para identificação) */	
     wire rf_write_en;
@@ -76,14 +80,39 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 		adder_sub_result
 	);
 
-	reg temp;
+	initial begin
+		current_state = state_none;
+		next_state = state_none;
+	end
 
 	/* ativação em borda de subida do clock */
 	always @(posedge clk) begin
 		case (op_code)
-			op_none: temp <= 0;
-			op_store: temp <= 1;
+			op_none: debug_variable = 64'h0000_0000_0000_0000;
+			op_store: begin
+				case (current_state)
+					state_none: begin
+						debug_variable = 64'h0000_0000_0000_1111;
+						next_state = state_writing_rf;
+					end
+					state_writing_rf: begin
+						debug_variable = 64'h0000_0000_1111_1111;
+						next_state = state_writing_dm;
+					end
+					state_writing_dm: begin
+						debug_variable = 64'h0000_0000_2222_1111;
+						next_state = state_none;
+					end
+				endcase
+			end
+			
+			op_add: debug_variable = 64'h0000_0000_2222_0000;
+			op_sub: debug_variable = 64'h0000_0000_2222_0000;
 		endcase
+	end
+
+	always @(negedge clk ) begin
+		current_state <= next_state;
 	end
 	
 endmodule
