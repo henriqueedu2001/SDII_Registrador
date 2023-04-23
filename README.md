@@ -15,6 +15,15 @@ Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas peq
 # Parametrização
 Todos os módulos aqui estão parametrizados para valores genéricos de tamanho. O registrador **register**, por exemplo, possui entradas de tamanho **N**, sendo **N** um parâmetro.
 
+## Processador
+
+```
+iverilog -o processor modules/processor.v modules/data_memory.v modules/register_file.v modules/adder_subtractor.v modules/negative.v modules/clock.v modules/reg.v testbenchs/test_processor.v
+```
+```
+vvp processor
+```
+
 ## Módulo data_memory
 Esse módulo contém a **memória dinâmica** que armazena 32 words de 64 bits cada. É possível realizar as operações de leitura e escrita, a partir dos inputs. A cada pulso de clock, ele verifica o sinal de escrita: se habilitado, ele escreve o **data_input** na posição **addr** da memória. Além disso, a todo momento ele apresenta no **data_output** o valor lido no **addr**, caso o **read** esteja ativo.
 

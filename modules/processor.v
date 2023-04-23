@@ -1,23 +1,20 @@
-/* Datapath do processador, juntando o register file
-e o data memory com o somador */
-
+/* datapath do processador, com register file e o data memory */
 module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
-    input [63:0] num1,
-    input [63:0] num2, 
+    input [WORDSIZE-1:0] num1,
+    input [WORDSIZE-1:0] num2, 
     input operation_in,
     output reg [63:0] result
 
 );
 
-/* Data Memory registers */
+	/* registradores do data memory */
     reg [4:0] dm_addr;
     reg [WORDSIZE-1:0] dm_data_input;
     reg dm_write_enable;
     reg dm_read;
     wire [WORDSIZE-1:0] dm_data_output;
 
-/* Register file registers */
-
+	/* registradores do register file */
 	reg rf_write_en;
 	reg [4:0] rf_write_addr; 
 	reg [WORDSIZE - 1:0] rf_write_data; 	
@@ -27,18 +24,17 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	wire [WORDSIZE-1:0] rf_data_a; 
 	wire [WORDSIZE-1:0] rf_data_b;
 
-    /* Somador registers*/
+    /* somador registers*/
     reg [WORDSIZE-1:0] factor_a;
 	reg [WORDSIZE-1:0] factor_b;
 	reg operation;
-    wire signed [7:0] adder_result;
+    wire signed [WORDSIZE-1:0] adder_result;
 
-    /* Parametros de estado */
+    /* parametros de estado */
     parameter [2:0] s0 = 3'b000, s1 = 3'b001, s2 = 3'b010, s3 = 3'b011, s4 = 3'b100, s5 = 3'b101, s6 = 3'b110;
-    reg[2:0] state, next_state; // variaveis de estado 
+    reg[2:0] state, next_state; /* variaveis de estado */ 
 
-/* Declaração dos módulos */
-
+	/* instanciação do data_memory */
 	data_memory dm(
 		.clk(clk),
 		.addr(dm_addr),
@@ -48,7 +44,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
         .data_output(dm_data_output)
 	);
 
-
+	/* instanciação do register_file */
 	register_file rf(
 		.clk(clk),
 		.write_en(rf_write_en), 
@@ -60,25 +56,23 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 		.data_b(rf_data_b)
 	);
 
+	/* instanciação do somador */
 	adder_subtractor add1(
 		.factor_a(factor_a),
 		.factor_b(factor_b),
 		.operation(operation_in),
         .result(adder_result)
 	);
-    
 
-wire clk; // clock
+	wire clk; // clock
 	clock_gen clock (clk);
 
-
-    	always @(posedge clock)
-	begin
+	/* mudança de estados em borda de subida */
+    always @(posedge clk) begin
          state <= next_state;
 	end
 
-    always@(state) 
-	begin
+    always@(state) begin
 		state <= next_state; // mudanca de estados 
 		// proximos estados
 		case(state)
@@ -93,6 +87,7 @@ wire clk; // clock
 		endcase
 	end
     
+	/* ações dos estados, para cada alteração em state */
     always@(state) begin
     	case(state)
     		s0: begin
@@ -108,6 +103,7 @@ wire clk; // clock
                 rf_write_en <= 1'b1;
                 rf_write_data <= dm_data_output;
 			end
+
     		s3: begin
                 dm_addr <= 5'b00001;
                 dm_data_input <= num2;
@@ -127,9 +123,9 @@ wire clk; // clock
                 factor_b <= rf_data_b;
                 result <= adder_result;
             end
+
 			default: next_state <= s0;
 	    endcase
     end
-
     
 endmodule
