@@ -4,17 +4,16 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
     input [WORDSIZE-1:0] num2, // Segundo número da operação
     input operation_in,        // Indicador da operação (1: subtração 0: soma)
     output reg [63:0] result   // Resultado da operação
-
 );
 
-	/* Registradores do data memory */
+	/* registradores do data memory */
     reg [4:0] dm_addr;                  
     reg [WORDSIZE-1:0] dm_data_input;
     reg dm_write_enable;
     reg dm_read;
     wire [WORDSIZE-1:0] dm_data_output;
 
-	/* Registradores do register file */
+	/* registradores do register file */
 	reg rf_write_en;
 	reg [4:0] rf_write_addr; 
 	reg [WORDSIZE - 1:0] rf_write_data; 	
@@ -24,13 +23,13 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	wire [WORDSIZE-1:0] rf_data_a; 
 	wire [WORDSIZE-1:0] rf_data_b;
 
-    /* Registradores do somador*/
+    /* registradores do somador*/
     reg [WORDSIZE-1:0] factor_a;
 	reg [WORDSIZE-1:0] factor_b;
 	reg operation;
     wire signed [WORDSIZE-1:0] adder_result;
 
-    /* Parametros de estado */
+    /* parametros de estado */
     parameter [2:0] s0 = 3'b000, s1 = 3'b001, s2 = 3'b010, s3 = 3'b011, s4 = 3'b100, s5 = 3'b101, s6 = 3'b110;
     reg[2:0] state, next_state; /* variaveis de estado */ 
 
@@ -64,7 +63,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
         .result(adder_result)
 	);
 
-	/* Gerando o clock */
+	/* gerando o clock */
 	wire clk; 
 	clock_gen clock (clk);
 
@@ -73,12 +72,12 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 		next_state <= s0;
 	end
 
-	/* Mudança de estados em borda de subida */
+	/* mudança de estados em borda de subida */
     always @(posedge clk) begin
          state <= next_state;
 	end
 
-	/* Lógica da máquina de estados */
+	/* lógica da máquina de estados */
     always@(state) begin
 		state <= next_state; 
 		case(state)
@@ -93,7 +92,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 		endcase
 	end
     
-	/* Ações de cada estado, para cada mudança de state */
+	/* ações de cada estado, para cada mudança de state */
     always@(state) begin
     	case(state)
 			/* Escreve o valor de num1

@@ -6,19 +6,6 @@ Neste repositório, encontra-se o trabalho da disciplina de sistemas digitais II
 - Henrique Eduardo @julianamitie
 - Juliana Mitie @henriqueedu2001
 
-O projeto conta com os seguintes módulos:
-1. **data_memory**: (TODO)
-2. **register_file**: (TODO)
-3. **register**: registrador de N bits, com sinal de load e clock, mas sem reset
-4. **adder_subtractor**: realiza somas e subtrações com números de N bits
-5. **negative**: calcula o oposto de um número, em notação de complemento de 2
-6. **absolute_value**: calcula o módulo de um número
-7. **number_signal**: verifica se um número de N bits é negativo
-
-Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas pequenas e simples. Eles servem para facilitar o desenvolvimento, pois permitem o reúso de um módulo em diversos outros locais, além de promoverem mais alto grau de abstração nos módulos maiores, que costumam ter implementação mais abstrata.
-
-Alguns dos componentes aqui listados podem não ser necessariamente utilizados pelo processador neste exato momento. Isso se deve ao fato de o nosso grupo
-
 **Requisitos**
 - compilador icarus verilog versão >= 12.0
 
@@ -41,6 +28,20 @@ iverilog -o <nome> <módulos> <testbench>
 vvp <nome>
 ```
 
+**Sobre o projeto**<br>
+O projeto conta com os seguintes módulos:
+1. **data_memory**: memória dinâmica, que armazena N palavras de M bits cada
+2. **register_file**: um banco de registradores, que permite a leitura de dados armazenados e a escrita ou modificação de informações
+3. **register**: registrador de N bits, com sinal de load e clock, mas sem reset
+4. **adder_subtractor**: realiza somas e subtrações com números de N bits
+5. **negative**: calcula o oposto de um número, em notação de complemento de 2
+6. **absolute_value**: calcula o módulo de um número
+7. **number_signal**: verifica se um número de N bits é negativo
+
+Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas pequenas e simples. Eles servem para facilitar o desenvolvimento, pois permitem o reúso de um módulo em diversos outros locais, além de promoverem mais alto grau de abstração nos módulos maiores, que costumam ter implementação mais abstrata.
+
+Alguns dos componentes aqui listados podem não ser necessariamente utilizados pelo processador neste exato momento. Isso se deve ao fato de o nosso grupo ter se preocupado em adiantar módulos para uso futuro; por exemplo, unidades que estão na ALU foram desenvolvidas antes da ALU ser criada.
+
 **Testes**<br>
 Para cada componente, desenvolveu-se um testbench específico, para verificação de corretude. Os comandos para visualização desses testes está descrito a seguir e em cada um dos módulos; basta copiar e colar seu conteúdo no terminal.
 
@@ -51,12 +52,25 @@ Mas, visando a facilitar o acesso aos testes e a evitar problemas com versões d
 - adder_subtractor.txt
 
 
-**Parametrização**
+**Parametrização**<br>
 Todos os módulos aqui estão parametrizados para valores genéricos de tamanho. O registrador **register**, por exemplo, possui entradas de tamanho **N**, sendo **N** um parâmetro.
 
-## Processador
+# Descrição dos Módulos
+
+## Módulo Processador
 Componente que representa o processador do projeto, com todos os seus subcomponentes.
 
+**Entradas**:
+- **clk**: Sinal de clock;
+- **rs1**: primeiro endereço do registrador a ser acessado, segundo instrução;
+- **rs2**: segundo endereço do registrador a ser acessado, segundo instrução;
+- **rd**: endereço em que será armazenado um valor definido pela instrução;
+- **op**: operação a se executar com **rs1** e **rs2**, para armazenamento em **rd**;
+
+**Saídas**:
+- **result**: valor de **rd**
+
+**Testbench**:
 ```
 iverilog -o processor modules/processor.v modules/data_memory.v modules/register_file.v modules/adder_subtractor.v modules/negative.v modules/clock.v modules/reg.v testbenchs/test_processor.v
 ```
@@ -65,7 +79,7 @@ vvp processor
 ```
 
 ## Módulo data_memory
-Esse módulo contém a **memória dinâmica** que armazena 32 words de 64 bits cada. É possível realizar as operações de leitura e escrita, a partir dos inputs. A cada pulso de clock, ele verifica o sinal de escrita: se habilitado, ele escreve o **data_input** na posição **addr** da memória. Além disso, a todo momento ele apresenta no **data_output** o valor lido no **addr**, caso o **read** esteja ativo.
+Uma **memória dinâmica** que armazena 32 words de 64 bits cada. É possível realizar as operações de leitura e escrita, a partir dos inputs. A cada pulso de clock, ele verifica o sinal de escrita: se habilitado, ele escreve o **data_input** na posição **addr** da memória. Além disso, a todo momento ele apresenta no **data_output** o valor lido no **addr**, caso o **read** esteja ativo.
 
 **Entradas**:
 - **clk**: Sinal de clock;
@@ -85,19 +99,9 @@ iverilog -o dm modules/data_memory.v testbenchs/test_data_memory.v
 vvp dm
 ```
 
-## Módulo Processador
-
-**Testbench**
-```
-iverilog -o processor modules/processor.v modules/data_memory.v modules/register_file.v modules/adder_subtractor.v modules/negative.v modules/clock.v modules/reg.v testbenchs/test_processor.v
-```
-```
-vvp processor
-```
-
 
 ## Módulo register_file
-O módulo *register_file* funciona como um banco de registradores, que permite a leitura de dados armazenados e a escrita ou modificação de informações em seus espaços de memória. Nessa implementação, o banco possui 32 registradores, correspondentes ao módulo **register** já implementado, de 64 *bits* cada. <br>
+O módulo **register_file** funciona como um banco de registradores, que permite a leitura de dados armazenados e a escrita ou modificação de informações em seus espaços de memória. Nessa implementação, o banco possui 32 registradores, correspondentes ao módulo **register** já implementado, de 64 *bits* cada. <br>
 As duas leituras de dados realizadas no banco são assíncronas, ou seja, são independentes do **clock**, e seus **outputs** variam de acordo com a mundança dos valores de endereços passados no input. Já a escrita é síncrona, sendo verificado se a variável de controle dessa operação está ativa a cada pulso de **clock**. 
 
 **Entradas**:
