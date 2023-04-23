@@ -21,32 +21,17 @@ module test_processor #(parameter WORDSIZE = 64, parameter SIZE = 32) ;
 
         num1 = 64'h0000_0000_0000_0005;
         num2 = 64'h0000_0000_0000_0002;
-        $monitor ("Somando %D + %D\n", num1, num2);
-        #100;
-        $monitor ("Resultado : %D\n", 
-            result
-        );
-        #100;
+        $monitor ("num1 = %H; num2 = %H;\nsum = %H\n", num1, num2, result);
+        #50;
 
         num1 = 64'h0000_0000_0005_000a;
         num2 = 64'h0000_0000_0000_0002;
-        $monitor ("Somando %D + %D\n", num1, num2);
-        #100;
-        $monitor ("Resultado : %D\n", 
-            result
-        );
-        #100;
-
+        $monitor ("num1 = %H; num2 = %H;\nsum = %H\n", num1, num2, result);
+        #50;
 
         num1 = 64'h0000_0000_0001_0005;
         num2 = 64'h0000_0002_0000_0000;
-        $monitor ("Somando %D + %D\n", num1, num2);
-        #100;
-        $monitor ("Resultado : %D\n", 
-            result
-        );
-        #100;
-
-   
+        $monitor ("num1 = %H; num2 = %H;\nsum = %H\n", num1, num2, result);
+        #50;
 	end
 endmodule

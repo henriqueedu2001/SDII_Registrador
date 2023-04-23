@@ -1,0 +1,6 @@
+**Este log foi gerado com o testbench test_adder_subtractor.v**
+
+a = 00110110; b = 00010101; operation = 0; result = 01001011; expected = 01001011
+a = 00110110; b = 00010101; operation = 1; result = 00100001; expected = 00100001
+a = 10111000; b = 01010111; operation = 0; result = 00001111; expected = 00001111
+a = 10111000; b = 01010111; operation = 1; result = 01100001; expected = 01100001

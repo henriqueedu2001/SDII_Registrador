@@ -1,0 +1,39 @@
+**Este log foi gerado com o testbench test_data_memory.v**
+
+-> Armazenando data_input = 000000000005e3a7 no endereço addr = 00101
+
+clock = 0; addr = 00101; write = 1; read = 0;
+input = 000000000005e3a7;
+output = 0000000000000000;
+
+clock = 1; addr = 00101; write = 1; read = 0;
+input = 000000000005e3a7;
+output = 0000000000000000;
+
+clock = 0; addr = 00101; write = 0; read = 1;
+input = 000000000005e3a7;
+output = 000000000005e3a7;
+
+-> Armazenando data_input = 00000000001f13a2 no endereço addr = 01110
+
+clock = 0; addr = 01110; write = 1; read = 0;
+input = 00000000001f13a2;
+output = 0000000000000000;
+
+clock = 1; addr = 01110; write = 1; read = 0;
+input = 00000000001f13a2;
+output = 0000000000000000;
+
+clock = 0; addr = 01110; write = 0; read = 1;
+input = 00000000001f13a2;
+output = 00000000001f13a2;
+
+-> Verificando se os dois valores estão devidamente armazenados
+
+clock = 1; addr = 00101; write = 0; read = 1;
+input = 0000000000000000;
+output = 000000000005e3a7;
+
+clock = 1; addr = 01110; write = 0; read = 1;
+input = 0000000000000000;
+output = 00000000001f13a2;

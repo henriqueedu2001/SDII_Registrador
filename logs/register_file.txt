@@ -1,0 +1,35 @@
+**Este log foi gerado com o testbench test_register_file.v**
+
+-> Escrita de x = 000000000000aabb em addr = 01101
+
+clock = 0; write_en = 1;
+write_addr = 01101; write_data = 000000000000aabb
+addr_a = 01101, data_a = xxxxxxxxxxxxxxxx
+addr_b = 00110, data_b = xxxxxxxxxxxxxxxx
+
+clock = 1; write_en = 1;
+write_addr = 01101; write_data = 000000000000aabb
+addr_a = 01101, data_a = 000000000000aabb
+addr_b = 00110, data_b = xxxxxxxxxxxxxxxx
+
+clock = 0; write_en = 1;
+write_addr = 01101; write_data = 000000000000aabb
+addr_a = 01101, data_a = 000000000000aabb
+addr_b = 00100, data_b = xxxxxxxxxxxxxxxx
+
+-> Escrita de x = 00000000e45fb21f em addr = 00100
+
+clock = 0; write_en = 1;
+write_addr = 00100; write_data = 00000000e45fb21f
+addr_a = 01101, data_a = 000000000000aabb
+addr_b = 00100, data_b = xxxxxxxxxxxxxxxx
+
+clock = 1; write_en = 1;
+write_addr = 00100; write_data = 00000000e45fb21f
+addr_a = 01101, data_a = 000000000000aabb
+addr_b = 00100, data_b = 00000000e45fb21f
+
+clock = 0; write_en = 1;
+write_addr = 00100; write_data = 00000000e45fb21f
+addr_a = 01101, data_a = 000000000000aabb
+addr_b = 00100, data_b = 00000000e45fb21f

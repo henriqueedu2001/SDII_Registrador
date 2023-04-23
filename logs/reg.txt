@@ -1,0 +1,9 @@
+**Este log foi gerado com o testbench test_reg.v**
+
+clk = 0; load = 0; data_output: xxxxxxxx
+clk = 1; load = 0; data_output: xxxxxxxx
+clk = 0; load = 0; data_output: xxxxxxxx
+clk = 0; load = 1; data_output: xxxxxxxx
+clk = 1; load = 1; data_output: 01010101
+clk = 0; load = 1; data_output: 01010101
+clk = 0; load = 0; data_output: 01010101

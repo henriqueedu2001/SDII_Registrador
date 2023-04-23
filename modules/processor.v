@@ -68,6 +68,11 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 	wire clk; 
 	clock_gen clock (clk);
 
+	initial begin
+		state <= s0;
+		next_state <= s0;
+	end
+
 	/* Mudança de estados em borda de subida */
     always @(posedge clk) begin
          state <= next_state;
@@ -98,14 +103,14 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
                 dm_data_input <= num1;
                 dm_write_enable <= 1'b1;
                 dm_read <= 1'b1;
-				$display ("s0 dm_data_output = %D = %D;", dm_data_output);
+				$display ("s0 dm_data_output = %D", dm_data_output);
             end
 
 			/* Escreve o valor de dm_data_output
 			(que está lendoo o valor de num1)
 			no registrador 00000 */
     		s1: begin
-				$display ("s1 dm_data_output = %D = %D;", dm_data_output);
+				$display ("s0 dm_data_output = %D", dm_data_output);
                 rf_addr_a <= 5'b00000;
                 rf_write_addr <= 5'b00000;
                 rf_write_en <= 1'b1;
@@ -115,7 +120,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 			/* Escreve o valor de num2
 			na posição 00001 do data_memory */
     		s2: begin
-				$display ("s2 dm_data_output = %D = %D;", dm_data_output);
+				$display ("s0 dm_data_output = %D", dm_data_output);
                 dm_addr <= 5'b00001;
                 dm_data_input <= num2;
                 dm_write_enable <= 1'b1;
@@ -126,7 +131,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 			(que está lendoo o valor de num2)
 			no registrador 00001 */
  			s3: begin
-				$display ("s3 dm_data_output = %D = %D;", dm_data_output);
+				$display ("s0 dm_data_output = %D", dm_data_output);
 				rf_addr_b <= 5'b00001;
                 rf_write_addr <= 5'b00001;
                 rf_write_en <= 1'b1;

@@ -1,5 +1,10 @@
 # Projeto de Sistemas Digitais II (Aula 08)
-Neste repositório, o trabalho da disciplina de sistemas digitais II referente à aula 08.
+Neste repositório, encontra-se o trabalho da disciplina de sistemas digitais II, correspondente ao desenvolvimento de um processador RISC-V.
+
+**Autores**:
+- Bárbara Bueno @buenobarbie
+- Henrique Eduardo @julianamitie
+- Juliana Mitie @henriqueedu2001
 
 O projeto conta com os seguintes módulos:
 1. **data_memory**: (TODO)
@@ -12,10 +17,45 @@ O projeto conta com os seguintes módulos:
 
 Como se pode notar, temos diversos módulos auxiliares, que realizam tarefas pequenas e simples. Eles servem para facilitar o desenvolvimento, pois permitem o reúso de um módulo em diversos outros locais, além de promoverem mais alto grau de abstração nos módulos maiores, que costumam ter implementação mais abstrata.
 
-# Parametrização
+Alguns dos componentes aqui listados podem não ser necessariamente utilizados pelo processador neste exato momento. Isso se deve ao fato de o nosso grupo
+
+**Requisitos**
+- compilador icarus verilog versão >= 12.0
+
+**Como usar este repositório?**<br>
+1. Clonar repositório do github
+```
+git clone https://github.com/henriqueedu2001/SDII_Registrador
+```
+
+2. Abrir diretório no terminal
+```
+cd SDII_REGISTRADOR
+```
+
+3. Executar os testbenchs
+```
+iverilog -o <nome> <módulos> <testbench>
+```
+```
+vvp <nome>
+```
+
+**Testes**<br>
+Para cada componente, desenvolveu-se um testbench específico, para verificação de corretude. Os comandos para visualização desses testes está descrito a seguir e em cada um dos módulos; basta copiar e colar seu conteúdo no terminal.
+
+Mas, visando a facilitar o acesso aos testes e a evitar problemas com versões do icarus (ele aponta erros em versão até a 10.3), disponibilizamos as saídas dos testes dos componentes mais importantes na pasta logs desse repositório:
+- register_file.txt
+- data_memory.txt
+- reg.txt
+- adder_subtractor.txt
+
+
+**Parametrização**
 Todos os módulos aqui estão parametrizados para valores genéricos de tamanho. O registrador **register**, por exemplo, possui entradas de tamanho **N**, sendo **N** um parâmetro.
 
 ## Processador
+Componente que representa o processador do projeto, com todos os seus subcomponentes.
 
 ```
 iverilog -o processor modules/processor.v modules/data_memory.v modules/register_file.v modules/adder_subtractor.v modules/negative.v modules/clock.v modules/reg.v testbenchs/test_processor.v
