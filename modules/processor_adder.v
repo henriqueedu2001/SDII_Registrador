@@ -22,8 +22,8 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 		state_writing_rf = 7'b0000001, /* escrevendo no register_file */
 		state_alu_computing = 7'b0000010, /* computando um resultado aritmético na ALU */
 		state_writing_dm = 7'b0000011, /* escrevendo no data_memory */
-		state_reading_dm = 7'b0000100; /* faz leitura do data_memory */
-		state_writing_rf1 = 7'b000101;
+		state_reading_dm = 7'b0000100, /* faz leitura do data_memory */
+		state_writing_rf1 = 7'b000101,
 		state_writing_rf2 = 7'b000110;
 
 	localparam result_addr = 5'b10100;
@@ -53,9 +53,9 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 
 	/* fios para instanciação do adder_subtractor (prefixo adder_sub_ para identificação) */
 	/* (aqui, no futuro, haverá uma ALU) */
-	wire [WORDSIZE-1:0] adder_sub_factor_a;
-    wire [WORDSIZE-1:0] adder_sub_factor_b;
-    wire adder_sub_operation;
+	reg [WORDSIZE-1:0] adder_sub_factor_a;
+    reg [WORDSIZE-1:0] adder_sub_factor_b;
+    reg adder_sub_operation;
     wire signed [WORDSIZE-1:0] adder_sub_result;
 
 	/* instanciação do register file (rf) */
@@ -168,7 +168,7 @@ module processor #(parameter WORDSIZE = 64, parameter SIZE = 32)(
 						adder_sub_factor_a = rf_data_a; 
     					adder_sub_factor_b = rf_data_b;
     					adder_sub_operation = 1'b0; // soma 
-						%display("->realizando a operacao especificada com valores do primeiro e segundo registradores")
+						$display("->realizando a operacao especificada com valores do primeiro e segundo registradores");
 
 						next_state = state_writing_dm; 
                     end 
