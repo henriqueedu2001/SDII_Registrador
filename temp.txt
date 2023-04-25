@@ -1,1 +1,0 @@
-iverilog -o alu modules/alu.v modules/adder_subtractor.v modules/negative.v testbenchs/test_alu.v
