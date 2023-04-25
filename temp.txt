@@ -1,0 +1,1 @@
+iverilog -o control_unit modules/control_unit.v modules/register_file.v modules/reg.v  modules/data_memory.v modules/alu.v modules/adder_subtractor.v modules/negative.v testbenchs/test_control_unit.v
