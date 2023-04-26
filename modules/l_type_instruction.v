@@ -1,5 +1,5 @@
 module l_type_instruction #(parameter WORDSIZE = 64, parameter SIZE = 32)(
-    input wire [SIZE-1:0] machine_instruction, /* instrução "crua" */
+    input wire [SIZE-1:0] instruction, /* instrução "crua" */
     output wire [11:0] immediate, /* immediate da instrução (12 bits) */
     output wire [4:0] rs1, /* rs1 da instrução (5 bits) */
     output wire [2:0] funct3, /* funct3 da instrução (3 bits) */
@@ -13,15 +13,4 @@ module l_type_instruction #(parameter WORDSIZE = 64, parameter SIZE = 32)(
     assign rd = instruction[11:7];
     assign op_code = instruction[6:0];
     
-    initial begin
-        //instruction <= 32'b000000000000_00000_000_00000_0000000;
-        $display(
-            "imm = %B; rs1 = %B; funct3 = %B, rd = %B, op_code = %B",
-            immediate,
-            rs1,
-            funct3,
-            rd,
-            op_code
-        );
-    end
 endmodule

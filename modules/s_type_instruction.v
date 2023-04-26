@@ -1,5 +1,5 @@
 module s_type_instruction #(parameter WORDSIZE = 64, parameter SIZE = 32)(
-    input wire [SIZE-1:0] machine_instruction, /* instrução "crua" */
+    input wire [SIZE-1:0] instruction, /* instrução "crua" */
     output wire [6:0] funct7, /* funct7 da instrução (7 bits) */
     output wire [4:0] rs2, /* rs2 da instrução (5 bits) */
     output wire [4:0] rs1, /* rs1 da instrução (5 bits) */
