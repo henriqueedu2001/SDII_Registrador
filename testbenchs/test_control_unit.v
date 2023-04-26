@@ -5,6 +5,7 @@ module test_control_unit #(parameter WORDSIZE = 64, parameter SIZE = 32);
     reg [SIZE-1:0] instruction; /* instrução de 32 bits */
     wire rf_write_enable; /* enable do register file */
     wire [4:0] rf_write_addr; /* endereço para escrita, do register file */
+    wire [WORDSIZE-1:0] rf_write_data; /* valor a ser escrito no register file */
     wire [4:0] rf_addr_a; /* endereço a do register file */
     wire [4:0] rf_addr_b; /* endereço b do register file */
     wire dm_write_enable; /* write enable do data memory */
@@ -18,6 +19,7 @@ module test_control_unit #(parameter WORDSIZE = 64, parameter SIZE = 32);
         instruction,
         rf_write_enable,
         rf_write_addr,
+        rf_write_data,
         rf_addr_a,
         rf_addr_b,
         dm_write_enable,
@@ -30,23 +32,31 @@ module test_control_unit #(parameter WORDSIZE = 64, parameter SIZE = 32);
         
         instruction = 32'h0000_0000;
         //$monitor("instruction = %H", instruction);
-        clk = 0; #100; 
-        clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
 
         instruction = 32'h0000_0001;
         //$monitor("instruction = %H", instruction);
-        clk = 0; #100; 
-        clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
 
         instruction = 32'h0000_0002;
         //$monitor("instruction = %H", instruction);
-        clk = 0; #100; 
-        clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
 
         instruction = 32'h0000_0003;
         //$monitor("instruction = %H", instruction);
-        clk = 0; #100; 
-        clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
+        clk = 0; #100; clk = 1; #100;
 
     end
 

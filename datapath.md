@@ -14,7 +14,7 @@ Modelo da intrução:
 ```
 lw <rd> <immediate>(<rs1>)
 ```
-Isso significa, em liguagem natural, _"some o valor de **imediate** com o valor armazenado no registrador, que está na posição **rs1**, e, por fim, guarde o resultado no register file na posição **rd**"_.
+Isso significa, em liguagem natural, _"some o valor de **immediate** com o valor armazenado no registrador, que está na posição **rs1**, e, por fim, guarde o resultado no register file na posição **rd**"_.
 
 ## Instrução Store Word (sw)
 Esta instrução escreve uma palavra no data memory. 
@@ -23,7 +23,7 @@ Modelo da intrução:
 ```
 sw <rd> <immediate>(<rs1>)
 ```
-Isso significa, em liguagem natural, _"some o valor de **imediate** com o valor armazenado no registrador, que está na posição **rs1**, e, por fim, guarde o resultado no data memory na posição **rd**"_.
+Isso significa, em liguagem natural, _"some o valor de **immediate** com o valor armazenado no registrador, que está na posição **rs1**, e, por fim, guarde o resultado no data memory na posição **rd**"_.
 
 ## Instrução Add (add)
 Esta instrução escreve soma dois valores armazenados no register file e guarda o resultado no próprio register file, numa posição definida a priori.

@@ -4,6 +4,7 @@ module control_unit #(parameter WORDSIZE = 64, parameter SIZE = 32)(
     input wire [SIZE-1:0] instruction, /* instrução de 32 bits */
     output reg rf_write_enable, /* enable do register file */
     output reg [4:0] rf_write_addr, /* endereço para escrita, do register file */
+    output reg [WORDSIZE-1:0] rf_write_data, /* valor a ser escrito no register file */
     output reg [4:0] rf_addr_a, /* endereço a do register file */
     output reg [4:0] rf_addr_b, /* endereço b do register file */
     output reg dm_write_enable, /* write enable do data memory */
@@ -19,92 +20,128 @@ module control_unit #(parameter WORDSIZE = 64, parameter SIZE = 32)(
         add_instruction = 2'b10,
         sub_instruction = 2'b11;
     
+    /* estados possíveis */
+    localparam
+        state_s0 = 4'b0001, /* rest state */
+        state_s1 = 4'b0010,
+        state_s2 = 4'b0011,
+        state_s3 = 4'b0100,
+        state_s4 = 4'b0101,
+        state_s5 = 4'b0110,
+        state_s6 = 4'b0111;
+    
+    /* estados da fsm */
+	reg [3:0] current_state, next_state;
+
+    /* inicialização das variáveis de estado */
+    initial begin
+        current_state = state_s0;
+        next_state = state_s0;
+    end
+    
     /* converte a intrução para os 4 tipos básicos de operações (implementadas até agora) */
     wire [1:0] simplified_instruction;
     assign simplified_instruction = instruction[1:0];
 
-    /* registrador temporário, para armazenas resultados intermediários */
-    wire [4:0] rf_temp;
-    
-    /* conexão register file com alu */
-    wire [WORDSIZE-1:0] rf_alu_addr_a;
-    wire [WORDSIZE-1:0] rf_alu_addr_b;
-
-    /* conexão alu (result) com data memory (data_input) */
-    wire [WORDSIZE-1:0] alu_dm_d_input;
-
-    /* conexão data memory com register file */
-    wire [WORDSIZE-1:0] dm_rf_data_input;
-
-    /* instanciação do register file */
-    register_file rf (
-        clk,
-        rf_write_enable,
-        rf_write_addr,
-        dm_rf_data_input,
-        rf_addr_a,
-        rf_addr_b,
-        rf_alu_addr_a,
-        rf_alu_addr_b
-    );
-
-    /* instaciação do data memory */
-    data_memory dm (
-        clk,
-        dm_write_addr,
-        alu_dm_d_input,
-        dm_write_enable,
-        dm_read,
-        dm_rf_data_input
-    );
-
     /* executar instrução load word */
     always @(posedge clk) begin
         if(simplified_instruction == load_word_instruction) begin
-                /*
-                state = rest
-                rf_write_enable = 0;
-                rf_write_addr = 0;
-                rf_addr_a = 0;
-                rf_addr_b = 0;
-                dm_write_enable = 0;
-                dm_write_addr = 0;
-                dm_read = 0;
-                alu_op = 0;
-
-                state = writing_imm
-                rf_write_enable = 1;
-                rf_write_addr = rf_temp;
-                rf_addr_a = 0;
-                rf_addr_b = 0;
-                dm_write_enable = 0;
-                dm_write_addr = 0;
-                dm_read = 0;
-                alu_op = 0;
-                */
-            $display("load_word_instruction");
+            case (current_state)
+                state_s0: begin
+                    $display("load word (s0)");
+                    next_state = state_s1;
+                end
+                state_s1: begin
+                    $display("load word (s1)");
+                    next_state = state_s2;
+                end
+                state_s2: begin
+                    $display("load word (s2)");
+                    next_state = state_s3;
+                end
+                state_s3: begin
+                    $display("load word (s3)");
+                    next_state = state_s0;
+                end
+            endcase
         end
     end
 
     /* executar instrução store word */
     always @(posedge clk) begin
         if(simplified_instruction == store_word_instruction) begin
-            $display("store_word_intruction");
+            case (current_state)
+                state_s0: begin
+                    $display("store word (s0)");
+                    next_state = state_s1;
+                end
+                state_s1: begin
+                    $display("store word (s1)");
+                    next_state = state_s2;
+                end
+                state_s2: begin
+                    $display("store word (s2)");
+                    next_state = state_s3;
+                end
+                state_s3: begin
+                    $display("store word (s3)");
+                    next_state = state_s0;
+                end
+            endcase
         end
     end
 
     /* executar instrução add */
     always @(posedge clk) begin
         if(simplified_instruction == add_instruction) begin
-            $display("add_intruction");
+            case (current_state)
+                state_s0: begin
+                    $display("add (s0)");
+                    next_state = state_s1;
+                end
+                state_s1: begin
+                    $display("add (s1)");
+                    next_state = state_s2;
+                end
+                state_s2: begin
+                    $display("add (s2)");
+                    next_state = state_s3;
+                end
+                state_s3: begin
+                    $display("add (s3)");
+                    next_state = state_s0;
+                end
+            endcase
         end
     end
 
     /* executar instrução sub */
     always @(posedge clk) begin
         if(simplified_instruction == sub_instruction) begin
-            $display("sub_intruction");
+            case (current_state)
+                state_s0: begin
+                    $display("sub (s0)");
+                    next_state = state_s1;
+                end
+                state_s1: begin
+                    $display("sub (s1)");
+                    next_state = state_s2;
+                end
+                state_s2: begin
+                    $display("sub (s2)");
+                    next_state = state_s3;
+                end
+                state_s3: begin
+                    $display("sub (s3)");
+                    next_state = state_s0;
+                end
+            endcase
         end
+    end
+
+    /* transição de estados na borda de descida */
+    always @(negedge clk) begin
+        current_state <= next_state;
     end
 
 endmodule
