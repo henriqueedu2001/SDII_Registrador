@@ -1,0 +1,42 @@
+#! /usr/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x55dd31670e70 .scope module, "l_type_instruction" "l_type_instruction" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "machine_instruction";
+    .port_info 1 /OUTPUT 12 "immediate";
+    .port_info 2 /OUTPUT 5 "rs1";
+    .port_info 3 /OUTPUT 3 "funct3";
+    .port_info 4 /OUTPUT 5 "rd";
+    .port_info 5 /OUTPUT 7 "op_code";
+P_0x55dd3164b620 .param/l "SIZE" 0 2 1, +C4<00000000000000000000000000100000>;
+P_0x55dd3164b660 .param/l "WORDSIZE" 0 2 1, +C4<00000000000000000000000001000000>;
+P_0x55dd3164b6a0 .param/l "instruction" 1 2 9, C4<00110010101101110111011010001001>;
+L_0x7fa55b86f0a8 .functor BUFT 1, C4<111>, C4<0>, C4<0>, C4<0>;
+v0x55dd31649d90_0 .net "funct3", 2 0, L_0x7fa55b86f0a8;  1 drivers
+L_0x7fa55b86f018 .functor BUFT 1, C4<001100101011>, C4<0>, C4<0>, C4<0>;
+v0x55dd31695200_0 .net "immediate", 11 0, L_0x7fa55b86f018;  1 drivers
+o0x7fa55b8b8078 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x55dd316952e0_0 .net "machine_instruction", 31 0, o0x7fa55b8b8078;  0 drivers
+L_0x7fa55b86f138 .functor BUFT 1, C4<0001001>, C4<0>, C4<0>, C4<0>;
+v0x55dd316953a0_0 .net "op_code", 6 0, L_0x7fa55b86f138;  1 drivers
+L_0x7fa55b86f0f0 .functor BUFT 1, C4<01101>, C4<0>, C4<0>, C4<0>;
+v0x55dd31695480_0 .net "rd", 4 0, L_0x7fa55b86f0f0;  1 drivers
+L_0x7fa55b86f060 .functor BUFT 1, C4<01110>, C4<0>, C4<0>, C4<0>;
+v0x55dd316955b0_0 .net "rs1", 4 0, L_0x7fa55b86f060;  1 drivers
+    .scope S_0x55dd31670e70;
+T_0 ;
+    %vpi_call 2 19 "$display", "imm = %B; rs1 = %B; funct3 = %B, rd = %B, op_code = %B", v0x55dd31695200_0, v0x55dd316955b0_0, v0x55dd31649d90_0, v0x55dd31695480_0, v0x55dd316953a0_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "modules/l_type_instruction.v";

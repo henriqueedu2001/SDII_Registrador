@@ -1,0 +1,45 @@
+#! /usr/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x55fb208ca3f0 .scope module, "r_type_instruction" "r_type_instruction" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "machine_instruction";
+    .port_info 1 /OUTPUT 7 "funct7";
+    .port_info 2 /OUTPUT 5 "rs2";
+    .port_info 3 /OUTPUT 5 "rs1";
+    .port_info 4 /OUTPUT 3 "funct3";
+    .port_info 5 /OUTPUT 5 "rd";
+    .port_info 6 /OUTPUT 7 "op_code";
+P_0x55fb208a4620 .param/l "SIZE" 0 2 1, +C4<00000000000000000000000000100000>;
+P_0x55fb208a4660 .param/l "WORDSIZE" 0 2 1, +C4<00000000000000000000000001000000>;
+P_0x55fb208a46a0 .param/l "instruction" 1 2 10, C4<11001000001001100111001000000110>;
+L_0x7fa9765860f0 .functor BUFT 1, C4<111>, C4<0>, C4<0>, C4<0>;
+v0x55fb208ca720_0 .net "funct3", 2 0, L_0x7fa9765860f0;  1 drivers
+L_0x7fa976586018 .functor BUFT 1, C4<1100100>, C4<0>, C4<0>, C4<0>;
+v0x55fb208ef070_0 .net "funct7", 6 0, L_0x7fa976586018;  1 drivers
+o0x7fa9765cf078 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x55fb208ef150_0 .net "machine_instruction", 31 0, o0x7fa9765cf078;  0 drivers
+L_0x7fa976586180 .functor BUFT 1, C4<0000110>, C4<0>, C4<0>, C4<0>;
+v0x55fb208ef210_0 .net "op_code", 6 0, L_0x7fa976586180;  1 drivers
+L_0x7fa976586138 .functor BUFT 1, C4<00100>, C4<0>, C4<0>, C4<0>;
+v0x55fb208ef2f0_0 .net "rd", 4 0, L_0x7fa976586138;  1 drivers
+L_0x7fa9765860a8 .functor BUFT 1, C4<01100>, C4<0>, C4<0>, C4<0>;
+v0x55fb208ef420_0 .net "rs1", 4 0, L_0x7fa9765860a8;  1 drivers
+L_0x7fa976586060 .functor BUFT 1, C4<00010>, C4<0>, C4<0>, C4<0>;
+v0x55fb208ef500_0 .net "rs2", 4 0, L_0x7fa976586060;  1 drivers
+    .scope S_0x55fb208ca3f0;
+T_0 ;
+    %vpi_call 2 21 "$display", "funct7 = %B; rs2 = %B; rs1 = %B; funct3 = %B, rd = %B, op_code = %B", v0x55fb208ef070_0, v0x55fb208ef500_0, v0x55fb208ef420_0, v0x55fb208ca720_0, v0x55fb208ef2f0_0, v0x55fb208ef210_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "modules/r_type_instruction.v";
